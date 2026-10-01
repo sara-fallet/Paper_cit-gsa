@@ -387,8 +387,8 @@ plot_final
 ##                       Application on Villani et al. data ----
 #_______________________________________________________________________________
 
-load("data/data_DCMono_discovery.RData")
-load("data/data_DCMono_discovery_log.RData")
+data_DCMono_discovery <- readRDS("data/data_DCMono_discovery.rds")
+data_DCMono_discovery_log <- readRDS("data/data_DCMono_discovery_log.rds")
 load("data/data_DCpop.RData")
 load("results/Villani_DEA_BTM_pvalues_combine_cd83.RData")
 load("results/Villani_DEA_BTM_pvalues_combine_ido.RData")

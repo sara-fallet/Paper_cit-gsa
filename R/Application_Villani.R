@@ -55,8 +55,8 @@ data_DCMono_discovery <- data_DCMono_discovery[genes_keep, ]
 # Log transformation of the data 
 data_DCMono_discovery_log <- log(data_DCMono_discovery + 1) 
 
-#save(data_DCMono_discovery_log, file = "data/data_DCMono_discovery_log.RData")
-#save(data_DCMono_discovery, file = "data/data_DCMono_discovery.RData")
+#saveRDS(data_DCMono_discovery_log,"data/data_DCMono_discovery_log.rds", compress="xz")
+#saveRDS(data_DCMono_discovery,"data/data_DCMono_discovery.rds", compress="xz")
 
 
 #_______________________________________________________________________________
