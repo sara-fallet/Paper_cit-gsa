@@ -388,7 +388,7 @@ plot_final
 #_______________________________________________________________________________
 
 data_DCMono_discovery <- readRDS("data/data_DCMono_discovery.rds")
-data_DCMono_discovery_log <- readRDS("data/data_DCMono_discovery_log.rds")
+data_DCMono_discovery_log <- log(data_DCMono_discovery + 1) 
 load("data/data_DCpop.RData")
 load("results/Villani_DEA_BTM_pvalues_combine_cd83.RData")
 load("results/Villani_DEA_BTM_pvalues_combine_ido.RData")
@@ -417,7 +417,7 @@ sce_obj <- SingleCellExperiment(
 )
 
 # Get the list of the most characteristic genes
-villani_genes_Boris <- read.table("data/gene_heatmap_villani_BorisCorrect.csv",sep=";", header = TRUE)
+villani_genes_Boris <- read.table("data/gene_heatmap_villani.csv",sep=";", header = TRUE)
 villani_genes_Boris <- as.data.frame(apply(X = villani_genes_Boris, MARGIN = 2, function(x){as.character(x)}), stringsAsFactors =FALSE )
 villani_genes_Boris$SYMBOL <- gsub("C1ORF", "C1orf", villani_genes_Boris$SYMBOL)
 villani_genes_Boris <- villani_genes_Boris[villani_genes_Boris$CellType != "DC4", ]
@@ -531,9 +531,10 @@ for(i in 1:nrow(mean)){
 }
 
 # Boxplot 
-bp_norm_cd <- ggpubr::ggboxplot(data_cd, x="subpopulation", y ="normalized_logcount", color="subpopulation", fill="subpopulation", alpha=0.4) + 
+bp_norm_cd <- ggpubr::ggviolin(data_cd, x="subpopulation", y ="normalized_logcount", color="subpopulation", fill="subpopulation", alpha=0.4) +
+  geom_boxplot(alpha = 0.4, width = 0.1) +
   theme_bw() +
-  ggpubr::stat_compare_means(method = "t.test", comparisons = my_comparisons, size = 5) +
+  ggpubr::stat_compare_means(method = "t.test", comparisons = my_comparisons, size = 3) +
   scale_color_manual(name = "DC subpopulation",values = my_colors) +
   scale_fill_manual(name = "DC subpopulation",values = my_colors) +
   xlab("DC subpopulation") +
@@ -542,46 +543,23 @@ bp_norm_cd <- ggpubr::ggboxplot(data_cd, x="subpopulation", y ="normalized_logco
   theme(
     legend.position ="none",
     
-    axis.title.x = element_text(size = 22),
-    axis.title.y = element_text(size = 22),
+    axis.title.x = element_text(size = 14),
+    axis.title.y = element_text(size = 14),
     
-    axis.text.x  = element_text(size = 20),
-    axis.text.y  = element_text(size = 20),
+    axis.text.x  = element_text(size = 12),
+    axis.text.y  = element_text(size = 12),
     
-    plot.caption = element_text(size = 18)
+    plot.caption = element_text(size = 10)
   )
+bp_norm_cd
 
-# Density
-dens_norm_cd <- ggplot(data_cd, aes(x = normalized_logcount, y=forcats::fct_rev(subpopulation), fill=subpopulation,color = subpopulation)) +
-  geom_density_ridges(scale = 0.8 , alpha=0.4) +
-  theme_bw() +
-  scale_color_manual(name = "DC subpopulation",values = my_colors) +
-  scale_fill_manual(name = "DC subpopulation",values = my_colors) +
-  xlab("CD83 normalized log-counts") +
-  ylab("subpopulation") +
-  theme(
-    axis.title.x = element_text(size = 22),
-    axis.title.y = element_text(size = 22),
-    
-    axis.text.x  = element_text(size = 20),
-    axis.text.y  = element_text(size = 20),
-    
-    legend.position ="none"
-    # legend.title = element_text(size = 16),
-    # legend.text  = element_text(size = 14)
-  )
-
-distribution_cd <- (bp_norm_cd | dens_norm_cd) #+ patchwork::plot_layout(guides = "collect")
-
-distribution_cd
-
-#ggsave("results/Figures/Villani_distribution_cd83.png",distribution_cd, width = 12, height = 6, dpi = 300)
+#ggsave("results/Figures/Villani_distribution_cd83.png",bp_norm_cd, width = 5, height = 4, dpi = 300)
 
 
 
 
 #------------------------------------------------------------------------------#
-#     List of the significant gene sets in the conditional analysis for CD83
+###  List of the significant gene sets in the conditional analysis for CD83 ----
 
 
 data_signif_condi_cd <- subset(data_combine_cd, data_combine_cd$leg=="Conditional only" | data_combine_cd$leg=="Both" )
@@ -617,9 +595,10 @@ for(i in 1:nrow(mean)){
 }
 
 # Boxplot
-bp_norm_ido <- ggpubr::ggboxplot(data_ido, x="subpopulation", y ="normalized_logcount", color="subpopulation", fill="subpopulation", alpha=0.4) + 
+bp_norm_ido <- ggpubr::ggviolin(data_ido, x="subpopulation", y ="normalized_logcount", color="subpopulation", fill="subpopulation", alpha=0.4) + 
+  geom_boxplot(alpha = 0.4, width = 0.1) +
   theme_bw() +
-  ggpubr::stat_compare_means(method = "t.test", comparisons = my_comparisons, size = 5) +
+  ggpubr::stat_compare_means(method = "t.test", comparisons = my_comparisons, size = 3) +
   scale_color_manual(name = "DC subpopulation",values = my_colors) +
   scale_fill_manual(name = "DC subpopulation",values = my_colors) +
   xlab("DC subpopulation") +
@@ -627,38 +606,17 @@ bp_norm_ido <- ggpubr::ggboxplot(data_ido, x="subpopulation", y ="normalized_log
   labs(caption = "displaying Student t-test p-values") +
   theme(
     legend.position ="none",
-    axis.title.x = element_text(size = 22),
-    axis.title.y = element_text(size = 22),
+    axis.title.x = element_text(size = 14),
+    axis.title.y = element_text(size = 14),
     
-    axis.text.x  = element_text(size = 20),
-    axis.text.y  = element_text(size = 20),
+    axis.text.x  = element_text(size = 12),
+    axis.text.y  = element_text(size = 12),
     
-    plot.caption = element_text(size = 18))
+    plot.caption = element_text(size = 10))
 
-# Density
-dens_norm_ido <- ggplot(data_ido, aes(x = normalized_logcount, y=forcats::fct_rev(subpopulation), fill=subpopulation,color = subpopulation)) +
-  geom_density_ridges(scale = 0.8 , alpha=0.4) +
-  theme_bw() +
-  scale_color_manual(name = "DC subpopulation",values = my_colors) +
-  scale_fill_manual(name = "DC subpopulation",values = my_colors) +
-  xlab("IDO1 normalized log-counts") +
-  ylab("subpopulation") +
-  theme(
-    axis.title.x = element_text(size = 22),# 18
-    axis.title.y = element_text(size = 22),
-    
-    axis.text.x  = element_text(size = 20),# 16
-    axis.text.y  = element_text(size = 20),
-    
-    legend.position ="none"
-    # legend.title = element_text(size = 16),
-    # legend.text  = element_text(size = 14)
-  )
+bp_norm_ido
 
-distribution_ido <- (bp_norm_ido | dens_norm_ido) #+ patchwork::plot_layout(guides = "collect")
-
-distribution_ido
-#ggsave("results/Figures/Villani_distribution_ido.png",distribution_ido, width = 12, height = 6, dpi=300)
+#ggsave("results/Figures/Villani_distribution_ido.png",bp_norm_ido, width = 5, height = 4, dpi=300)
 
 
 
@@ -719,6 +677,9 @@ plot
 #     List of the significant gene sets in the conditional analysis for IDO
 
 data_signif_condi_ido <- subset(data_combine_ido, data_combine_ido$leg=="Conditional only" | data_combine_ido$leg=="Both")
+data_signif_condi_ido$gs_names[
+  data_signif_condi_ido$gs_names == "signal transduction, plasma membrane"
+] <- "* signal transduction, plasma membrane"
 data_tab_ido <- tableGrob(as.matrix(data.frame("Gene sets" =  data_signif_condi_ido$gs_names)))
 
 #ggsave("results/Figures/Genesets_names_conditional_ido.png", data_tab_ido, width = 6, height = 3)
