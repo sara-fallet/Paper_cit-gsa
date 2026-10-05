@@ -6,7 +6,7 @@
 #SBATCH -J DM_m100
 
 # walltime (hh:mm::ss)
-#SBATCH -t 1:30:00
+#SBATCH -t 2:30:00
 
 # total memory per node
 #SBATCH --mem=46GB
@@ -49,7 +49,6 @@ P2=$2
 P3=$3
 P4=$4
 
-echo "Paramètres envoyés : $P1 , $P2 et $P3"
 
 
 # on charge R
