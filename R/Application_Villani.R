@@ -14,7 +14,7 @@ library(citcdf)
 #_______________________________________________________________________________
 # Load data ----
 data_DCMono_discovery <- read.table("data/GSE94820_raw.expMatrix_DCnMono.discovery.set.submission.txt", header = TRUE, sep = "\t") # gene expression amtrix
-cluster_sample <- read_excel("data/aah4573_supplementary_tables_1-16.xlsx", sheet = 20, skip = 2) # DC sub-population
+cluster_sample <- read.table("data/Supplementary_Table_13_Cluster_IDs.txt", header=TRUE,sep = "\t") # DC sub-population
 colnames(cluster_sample) <- c("cells","ID")
 cluster_sample$cells <- sub("_rsem$", "", cluster_sample$cells)
 

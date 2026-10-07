@@ -21,7 +21,7 @@ if (!exists("rho")) {
 
 fig_path <- "figures"
 if (! dir.exists(fig_path)) dir.create(fig_path)
-filename <- file.path(fig_path, sprintf("Simulation_TDR_DE_DM_rho%02d.png", rho*10))
+filename <- file.path(fig_path, sprintf("Simulation_TDR_DE_DM_rho%02d.pdf", rho*10))
 
 mycolor = c(
   "cit_gsa" = "#FF33CC",
