@@ -1,9 +1,8 @@
+library(ggplot2)
 library(ggpubr)
 
-
-
 fig_path <- "figures"
-if (! dir.exists(fig_path)) dir.create(fig_path)
+if (!dir.exists(fig_path)) dir.create(fig_path)
 filename <- file.path(fig_path, "Villani_distribution_cd83.pdf")
 
 
@@ -14,7 +13,6 @@ filename <- file.path(fig_path, "Villani_distribution_cd83.pdf")
 # =============================================================================#
 # =============================================================================#
 data_DCMono_discovery <- readRDS("data/data_DCMono_discovery.rds")
-data_DCMono_discovery_log <- log(data_DCMono_discovery + 1) 
 load("data/data_DCpop.RData")
 
 my_colors <- c(
@@ -25,11 +23,14 @@ my_colors <- c(
 
 
 # Get CD83 gene expression
-data_cd  <- data.frame(count = as.numeric(data_DCMono_discovery[which(rownames(data_DCMono_discovery) == "CD83"), ]),
-                       normalized_logcount = as.numeric(data_DCMono_discovery_log[which(rownames(data_DCMono_discovery_log) == "CD83"), ]),
-                       UMI = colnames(data_DCMono_discovery_log[which(rownames(data_DCMono_discovery_log) == "CD83"), ]),
-                       subpopulation = factor(DCpop, levels=c("DC1","DC2 & DC3","pDC"), ordered = TRUE)
-) 
+idxs <- which(rownames(data_DCMono_discovery) == "CD83")
+counts <- as.numeric(data_DCMono_discovery[idxs, ])
+UMIs <- names(data_DCMono_discovery[idxs, ])
+subpop <- factor(DCpop, levels = c("DC1","DC2 & DC3","pDC"), ordered = TRUE)
+data_cd  <- data.frame(count = counts,
+                       normalized_logcount = log(1 + counts),
+                       UMI = UMIs,
+                       subpopulation = subpop) 
 
 # Perform t.test between the DC subpopulations
 mean <- ggpubr::compare_means(normalized_logcount ~ subpopulation, data = data_cd, method = "t.test")
@@ -39,7 +40,12 @@ for(i in 1:nrow(mean)){
 }
 
 # Boxplot 
-bp_norm_cd <- ggpubr::ggviolin(data_cd, x="subpopulation", y ="normalized_logcount", color="subpopulation", fill="subpopulation", alpha=0.4) +
+bp_norm_cd <- ggpubr::ggviolin(data_cd, 
+                               x = "subpopulation", 
+                               y = "normalized_logcount", 
+                               color = "subpopulation", 
+                               fill = "subpopulation", 
+                               alpha = 0.4) +
   geom_boxplot(alpha = 0.4, width = 0.1) +
   theme_bw() +
   ggpubr::stat_compare_means(method = "t.test", comparisons = my_comparisons, size = 3) +
@@ -49,7 +55,7 @@ bp_norm_cd <- ggpubr::ggviolin(data_cd, x="subpopulation", y ="normalized_logcou
   ylab("CD83 normalized log-counts") +
   labs(caption = "displaying Student t-test p-values") +
   theme(
-    legend.position ="none",
+    legend.position = "none",
     
     axis.title.x = element_text(size = 14),
     axis.title.y = element_text(size = 14),
@@ -61,26 +67,3 @@ bp_norm_cd <- ggpubr::ggviolin(data_cd, x="subpopulation", y ="normalized_logcou
   )
 
 ggsave(filename, bp_norm_cd, width = 5, height = 4, dpi = 300)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
