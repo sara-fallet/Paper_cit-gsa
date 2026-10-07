@@ -39,16 +39,18 @@ source("R/plot_simulation_results.R")
 source("R/plot_heatmap_Villani.R")
 
 
-# Figure S4: Distribution CD83 across DCsubset ---- 
-source("R/plot_CD83_distribution.R")
+# Figure S4: Distribution of CD83 across DCsubset ---- 
+gene <- "CD83"
+source("R/plot_gene_distribution.R")
 
 
 # Figure S5: Significant gene sets conditional analysis CD83 ----
 source("R/table_CD83.R")
 
 
-# Figure S6: Distribution IDO across DCsubset ---- 
-source("R/plot_IDO_distribution.R")
+# Figure S6: Distribution of IDO across DCsubset ---- 
+gene <- "IDO1"
+source("R/plot_gene_distribution.R")
 
 
 # Figure S7: Application to Villani et al. data on IDO gene ---- 
