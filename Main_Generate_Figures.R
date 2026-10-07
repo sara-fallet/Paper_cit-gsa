@@ -1,5 +1,6 @@
 # Packages
 library(cowplot)
+
 library(dplyr)
 library(ggbreak)
 library(ggplot2)
@@ -43,7 +44,7 @@ source("R/plot_CD83_distribution.R")
 
 
 # Figure S5: Significant gene sets conditional analysis CD83 ----
-source("R/plot_CD83_table.R")
+source("R/table_CD83.R")
 
 
 # Figure S6: Distribution IDO across DCsubset ---- 
@@ -55,7 +56,7 @@ source("R/plot_IDO_results.R")
 
 
 # Figure S8: Significant gene sets conditional analysis IDO ----
-source("R/plot_IDO_table.R")
+source("R/table_IDO.R")
 
 
 
