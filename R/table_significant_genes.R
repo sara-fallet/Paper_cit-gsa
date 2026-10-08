@@ -3,7 +3,10 @@ library(xtable)
 tbl_path <- "tables"
 if (!dir.exists(tbl_path)) dir.create(tbl_path)
 
-
+if (!exists("gene")) {
+  warning("Parameter 'gene' not set: using default value, gene = 'CD83'")
+  gene <- "CD83"
+}
 
 file_res <- paste0("results/Villani_DEA_BTM_pvalues_combine_", gene, ".RData")
 get_data <- load(file_res)

@@ -1,16 +1,10 @@
 # Packages
 library(cowplot)
-
-library(dplyr)
 library(ggbreak)
 library(ggplot2)
 library(grid)
 library(gridExtra)
-library(magrittr)
 library(pheatmap)
-library(ggridges)
-library(tidyr)
-library(ggtext)
 library(ggpubr)
 library(xtable)
 library(SingleCellExperiment)

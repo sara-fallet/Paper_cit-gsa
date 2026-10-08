@@ -1,9 +1,7 @@
 library(cowplot)
-library(dplyr)
 library(ggplot2)
 library(grid)
 library(gridExtra)
-library(magrittr)
 
 # =============================================================================#
 # =============================================================================#
@@ -76,7 +74,7 @@ plot_ <- ggplot(data_wip,
 
 # Plot legends
 plot_leg_method1 <- ggplot(
-  data_wip %>% dplyr::filter(gp_method == "self-contained"),
+  subset(data_wip, gp_method == "self-contained"),
   aes(x = prop, y = indic, colour = method)) +
   geom_line() +
   geom_point(shape = 17, size = 2) +
@@ -93,7 +91,7 @@ plot_leg_method1 <- ggplot(
     legend.text = element_text(size = 14))
 
 plot_leg_method2 <- ggplot(
-  data_wip %>% dplyr::filter(gp_method == "competitive"),
+  subset(data_wip, gp_method == "competitive"),
   aes(x = prop, y = indic, colour = method)) +
   geom_line() +
   geom_point(shape = 16, size = 2) +

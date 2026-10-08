@@ -1,11 +1,13 @@
-
 library(ggplot2)
 library(ggbreak)
-library(ggtext)
 
 fig_path <- "figures"
-if (! dir.exists(fig_path)) dir.create(fig_path)
+if (!dir.exists(fig_path)) dir.create(fig_path)
 
+if (!exists("gene")) {
+  warning("Parameter 'gene' not set: using default value, gene = 'CD83'")
+  gene <- "CD83"
+}
 
 file_res <- paste0("results/Villani_DEA_BTM_pvalues_combine_", gene, ".RData")
 get_data <- load(file_res)
@@ -13,7 +15,6 @@ data_combine <- get(get_data)
 
 filename <- file.path(fig_path, 
                       sprintf("Villani_pvalues_condiVSmarginal_%s.pdf", gene))
-
 
 
 # =============================================================================#
@@ -59,11 +60,11 @@ plot_ <- ggplot(data_combine, aes(x = pval_adj, y = pval_noadj)) +
     axis.text.x.top = element_blank(),
     axis.ticks.x.top = element_blank(),
     
-    legend.title = ggtext::element_markdown(size = 32),
+    legend.title = element_text(size = 30),
     legend.text = element_text(size = 30),
     
-    axis.title.x = element_text(size = 32), 
-    axis.title.y = element_text(size = 32),
+    axis.title.x = element_text(size = 30), 
+    axis.title.y = element_text(size = 30),
     
     axis.text.x = element_text(size = 24, angle = -45, hjust=0), 
     axis.text.y = element_text(size = 24),
@@ -73,19 +74,11 @@ plot_ <- ggplot(data_combine, aes(x = pval_adj, y = pval_noadj)) +
     plot.background = element_rect(fill = "white")) 
 
 
-if(gene == "CD83"){
+if (gene == "CD83"){
   plot_ <- plot_ + 
     ggbreak::scale_x_break(c(1e-20, 7e-4), scales = 1, symbol = "slash") + 
     scale_x_log10(breaks = scales::breaks_log(n = 6)) 
-  }
+}
 
 
 ggsave(filename, plot = plot_, width = 14, height = 8, dpi = 300) # width = 6
-
-
-
-
-
-
-
-
