@@ -63,13 +63,13 @@ bp_norm_gene <- ggpubr::ggviolin(data_gene,
   theme(
     legend.position = "none",
     
-    axis.title.x = element_text(size = 14),
-    axis.title.y = element_text(size = 14),
+    axis.title.x = element_text(size = 10),
+    axis.title.y = element_text(size = 10),
     
-    axis.text.x  = element_text(size = 12),
-    axis.text.y  = element_text(size = 12),
+    axis.text.x  = element_text(size = 8),
+    axis.text.y  = element_text(size = 8),
     
-    plot.caption = element_text(size = 10)
+    plot.caption = element_text(size = 6)
   )
 
-ggsave(filename, bp_norm_gene, width = 5, height = 4, dpi = 300)
+ggsave(filename, bp_norm_gene, width = 4, height = 3, dpi = 300)

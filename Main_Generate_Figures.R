@@ -22,7 +22,8 @@ source("R/plot_simulation_results.R")
 
 
 # Figure 2: Application to Villani et al. data on CD83 gene ---- 
-source("R/plot_CD83_results.R")
+gene <- "CD83"
+source("R/plot_results_gsa.R")
 
 
 # Figure S1: Simulation results with correlation 0 ---- 
@@ -45,7 +46,8 @@ source("R/plot_gene_distribution.R")
 
 
 # Figure S5: Significant gene sets conditional analysis CD83 ----
-source("R/table_CD83.R")
+gene <- "CD83"
+source("R/table_significant_genes.R")
 
 
 # Figure S6: Distribution of IDO across DCsubset ---- 
@@ -54,11 +56,13 @@ source("R/plot_gene_distribution.R")
 
 
 # Figure S7: Application to Villani et al. data on IDO gene ---- 
-source("R/plot_IDO_results.R")
+gene <- "IDO1"
+source("R/plot_results_gsa.R")
 
 
 # Figure S8: Significant gene sets conditional analysis IDO ----
-source("R/table_IDO.R")
+gene <- "IDO1"
+source("R/table_significant_genes.R")
 
 
 

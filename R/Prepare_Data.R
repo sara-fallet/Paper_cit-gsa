@@ -167,8 +167,8 @@ data_combine_ido <- data.frame(gs_names = pval_dea_ido_adj$geneset_names,
 data_combine_cd <- formatting_data_combine(data_combine_cd)
 data_combine_ido <- formatting_data_combine(data_combine_ido)
 
-save(data_combine_cd, file = "results/Villani_DEA_BTM_pvalues_combine_cd83.RData")
-save(data_combine_ido, file = "results/Villani_DEA_BTM_pvalues_combine_ido.RData")
+save(data_combine_cd, file = "results/Villani_DEA_BTM_pvalues_combine_CD83.RData")
+save(data_combine_ido, file = "results/Villani_DEA_BTM_pvalues_combine_IDO1.RData")
 
 
 

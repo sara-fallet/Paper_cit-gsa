@@ -122,7 +122,8 @@ binded <- rbind(temp$gtable, temp3$gtable, size = "first")
 binded$heights[[9]] <- unit(1/40, units = "npc")
 
 # Modify the plot elements 
-png(filename, width = 3200, height = 2800, res = 300) #"figures/Villani_heatmap.png"
+#pdf(filename, width = 3200, height = 2800) #, res = 300) #"figures/Villani_heatmap.png"
+pdf(filename, width = 12, height = 10) #, res = 300) #"figures/Villani_heatmap.png"
 
 title <- textGrob("Villani data", x = 0.42, y = 0.7, 
                   gp = gpar(fontsize = 20, fontface = "bold"))
