@@ -25,16 +25,16 @@ filename <- file.path(fig_path,
 # =============================================================================#
 
 plot_ <- ggplot(data_combine, aes(x = pval_adj, y = pval_noadj)) +
-  geom_abline(aes(intercept = 0, slope = 1, linetype="Identity line y = x", color="black")) +
+  geom_abline(aes(intercept = 0, slope = 1, linetype = "Identity line: y = x", color="black")) +
   geom_point(aes(color = leg) , size = 3) +
   scale_y_log10() + 
   labs(
-    x =  "Conditional adjusted p-values",
-    y = " Marginal adjusted p-values"
+    x =  "Conditional p-values (FDR-corrected)",
+    y = " Marginal p-values (FDR-corrected)"
   ) +
   scale_linetype_manual(
     name = NULL,                      
-    values = c("Identity line y = x" = "solid"),
+    values = c("Identity line: y = x" = "solid"),
     guide = guide_legend(order=1)
   ) +
   scale_color_manual(
