@@ -63,9 +63,3 @@ source("R/table_significant_genes.R")
 
 
 
-
-# ?
-# load("results/Villani_DEA_BTM_adj_ido.RData")
-# load("results/Villani_DEA_BTM_adj_cd83.RData")
-# BTM_gmt <- GSA.read.gmt("data/BTM_for_GSEA_20131008.gmt") 
-
